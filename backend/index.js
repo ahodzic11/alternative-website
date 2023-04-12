@@ -19,8 +19,9 @@ app.use("/api/projects", projectsRouter);
 
 app.get("/:naslov", async (req, res) => {
   const naslov = req.params.naslov;
+  console.log(naslov);
   const testFolder = "https://www.nvo-alternative.org/images/radionice/" + naslov + "/";
-  const testFolder2 = "./../uploads/radionice/Prezentacijskevještine";
+  const testFolder2 = "./../uploads/radionice/" + naslov + "/";
   const testFolder3 = "https://www.nvo-alternative.org/images/radionice/Prezentacijskevještine/";
   try {
     const slike = fs.readdirSync(testFolder2);

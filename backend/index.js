@@ -9,13 +9,27 @@ const ativitiesRouter = require("./api/activities/activityRouter");
 const newsRouter = require("./api/news/newsRouter");
 const projectsRouter = require("./api/projects/projectRouter");
 const fs = require("fs");
-app.use(express.json());
+const fileUpload = require("express-fileupload");
 
+app.use(express.json());
+app.use(fileUpload());
 app.use("/api/users", userRouter);
 app.use("/api/workshops", workshopRouter);
 app.use("/api/activities", ativitiesRouter);
 app.use("/api/news", newsRouter);
 app.use("/api/projects", projectsRouter);
+
+app.post("/upload", (req, res) => {
+  const { image } = req.files;
+  console.log(image);
+  //if (!image) return res.sendStatus(400);
+
+  //if (/^image/.test(image.mimetype)) return res.sendStatus(400);
+
+  image.mv(__dirname + "/newuploads/" + image.name);
+
+  res.sendStatus(200);
+});
 
 app.get("/:naslov", async (req, res) => {
   const naslov = req.params.naslov;
